@@ -24,15 +24,12 @@ MicroBit uBit;
 //Sets up the sensor for constant read
 //Returns false if sensor does not respond
 
-bool ADS1015::begin(uint8_t i2caddr)
+void ADS1015::begin(uint8_t i2caddr)
 {
   //Bring in the user's choices
 
   _i2caddr = i2caddr;
 
-  if (isConnected() == false) return (false); //Check for sensor presence
-
-  return (true); //We're all setup!
 }
 
 //Returns true if I2C device ack's

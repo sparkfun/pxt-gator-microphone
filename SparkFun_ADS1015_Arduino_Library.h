@@ -85,7 +85,7 @@
 
 class ADS1015 {
   public:
- 	bool begin(uint8_t i2caddr = ADS1015_ADDRESS_GND);
+ 	void begin(uint8_t i2caddr = ADS1015_ADDRESS_GND);
 	
     bool isConnected(); //Checks if sensor ack's the I2C request
 	
