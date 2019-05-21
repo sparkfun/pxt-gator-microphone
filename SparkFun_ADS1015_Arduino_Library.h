@@ -23,7 +23,7 @@
 //The catch-all default is 32
 #define I2C_BUFFER_LENGTH 32
 
-#define ADS1015_ADDRESS_GND 0x48 //7-bit unshifted default I2C Address
+#define ADS1015_ADDRESS_GND 0x51 //7-bit unshifted default I2C Address
 #define ADS1015_ADDRESS_VDD 0x49
 #define ADS1015_ADDRESS_SDA 0x4A
 #define ADS1015_ADDRESS_SCL 0x4B
