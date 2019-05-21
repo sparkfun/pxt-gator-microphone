@@ -1,0 +1,20 @@
+{
+    "name": "gatorMicrophone",
+    "version": "0.0.1",
+    "description": "SparkFun gator:Microphone Gate and Envelope Sensor",
+    "license": "MIT",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "README.md",
+        "gatormicrophone.ts",
+        "gatormicrophone.cpp",
+        "SparkFun_ADS1015_Arduino_Library.h",
+        "SparkFun_ADS1015_Arduino_Library.cpp",
+        "shims.d.ts",
+        "enums.d.ts"
+    ],
+    "testFiles": [],
+    "public": true
+}
