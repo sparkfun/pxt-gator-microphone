@@ -43,4 +43,10 @@ namespace gatorMicrophone {
 		}
 		return false;
 	}
+	
+	//%
+	void setGain(uint16_t gainOption)
+	{
+		mic->setGain(gainOption);
+	}
 }

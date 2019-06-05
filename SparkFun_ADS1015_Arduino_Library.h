@@ -26,13 +26,6 @@ class ADS1015 {
 	
 	uint16_t getSingleEnded(uint8_t channel);
 	uint16_t getAnalogData(uint8_t channel); // antiquated function; here for backward compatibility
-	float getScaledAnalogData(uint8_t channel);
-	void calibrate();
-	uint16_t getCalibration(uint8_t channel, bool hiLo);
-	void setCalibration(uint8_t channel, bool hiLo, uint16_t value);
-	void resetCalibration();
-	
-	float mapf(float val, float in_min, float in_max, float out_min, float out_max);
 	
     bool available(); //True if OS bit is set
 
@@ -58,9 +51,6 @@ class ADS1015 {
 	
 	float _multiplierToVolts = 1.0F; // at a default gain of 2, the multiplier is 1, also updated in setGain()
 	void updateMultiplierToVolts();
-	
-	//Array is structured as calibrationValues[finger][lo/hi]
-	uint16_t calibrationValues[2][2] = {{0, 0}, {0, 0}};
 
     bool _printDebug = false; //Flag to print the serial commands we are sending to the Serial port for debug
 

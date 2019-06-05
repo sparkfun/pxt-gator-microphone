@@ -133,65 +133,6 @@ uint16_t ADS1015::getAnalogData(uint8_t channel)
 	return getSingleEnded(channel);
 }
 
-//Returns a value between 0 and 1 based on how bent the finger is. This function will not work with an uncalibrated sensor
-float ADS1015::getScaledAnalogData (uint8_t channel)
-{
-	float data = mapf(getAnalogData(channel), calibrationValues[channel][0], calibrationValues[channel][1], 0, 1);
-	if (data > 1)
-	{
-		return 1;
-	}
-	else if (data < 0)
-	{
-		return 0;
-	}
-	else
-	{
-		return data;
-	}
-}
-
-void ADS1015::calibrate ()
-{
-	for (int finger = 0; finger < 2; finger++)
-	{
-		uint16_t value = getAnalogData(finger);
-		if ((value > calibrationValues[finger][1] || calibrationValues[finger][1] == 0) && value < 1085)
-		{
-			calibrationValues[finger][1] = value;
-		}
-		else if (value < calibrationValues[finger][0] || calibrationValues[finger][0] == 0)
-		{
-			calibrationValues[finger][0] = value;
-		}
-	}
-}
-
-uint16_t ADS1015::getCalibration(uint8_t channel, bool hiLo)
-{
-	return calibrationValues[channel][hiLo];
-}
-
-void ADS1015::setCalibration(uint8_t channel, bool hiLo, uint16_t value)
-{
-	calibrationValues[channel][hiLo] = value;
-}
-
-void ADS1015::resetCalibration()
-{
-	for (int channel = 0; channel < 2; channel++)
-	{
-		for (int hiLo = 0; hiLo < 2; hiLo++)
-		{
-			calibrationValues[channel][hiLo] = 0;			
-		}
-	}
-}
-
-float ADS1015::mapf(float val, float in_min, float in_max, float out_min, float out_max) {
-	return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
-
 //Set the mode. Continuous mode 0 is favored
 void ADS1015::setMode(uint16_t mode)
 {
@@ -206,7 +147,7 @@ uint16_t ADS1015::getMode ()
 
 void ADS1015::setGain (uint16_t gain)
 {
-	_gain = gain;
+	_gain = (gain * 2) << 16;
 	updateMultiplierToVolts(); // each new gain setting changes how we convert to volts
 }
 

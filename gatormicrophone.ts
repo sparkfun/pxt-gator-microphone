@@ -17,6 +17,16 @@
  * Functions to operate the gatorMicrophone sensor
  */
 
+enum gainOptions
+{
+	two_thirds = 0,
+	one = 1,
+	two = 2,
+	four = 3,
+	eight = 4,
+	sixteen = 5,
+}
+
 //% color=#f44242 icon="\uf130"
 namespace gatorMicrophone {
     // Functions for reading envelope and gate data
@@ -41,5 +51,17 @@ namespace gatorMicrophone {
 	//% shim=gatorMicrophone::readGateData
 	export function readGateData(): boolean{
 		return true
+	}
+	
+	/**
+	* Sets the gain, or volume of the microphone. Lower gain means more sensitivity to smaller changes in volume.
+	*/
+	//% weight=28
+	//% blockId="gatorMicrophone_setGain"
+	//% block="Change gain to %gainOptions"
+	//% shim=gatorMicrophone::setGain
+	//% advanced=true
+	export function setGain(gainOption: gainOptions){
+		return
 	}
 }
