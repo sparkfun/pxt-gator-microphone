@@ -32,8 +32,13 @@ namespace gatorMicrophone {
 	}
 	
 	//%
-	uint16_t readGateData()
+	bool readGateData()
 	{
-		return mic->getSingleEnded(3);
+		uint16_t temp = mic->getSingleEnded(3);
+		if (temp > 500)
+		{
+			return true;
+		}
+		return false;
 	}
 }

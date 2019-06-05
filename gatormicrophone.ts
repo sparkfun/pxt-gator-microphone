@@ -39,7 +39,7 @@ namespace gatorMicrophone {
 	//% blockId="gatorMicrophone_readGateData"
 	//% block="Check for sound"
 	//% shim=gatorMicrophone::readGateData
-	export function readGateData(): number{
+	export function readGateData(): boolean{
 		return 0
 	}
 }
