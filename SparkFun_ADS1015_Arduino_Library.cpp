@@ -84,7 +84,7 @@ static const char ADS1015_POINTER_HITHRESH     = (0x03);
 
 uint16_t _mode = ADS1015_CONFIG_MODE_CONT;
 uint16_t _gain = ADS1015_CONFIG_PGA_2;
-uint16_t _sampleRate = ADS1015_CONFIG_RATE_1600HZ;
+uint16_t _sampleRate = ADS1015_CONFIG_RATE_3300HZ;
 
 //Returns true if I2C device ack's
 bool ADS1015::isConnected()
@@ -147,7 +147,7 @@ uint16_t ADS1015::getMode ()
 
 void ADS1015::setGain (uint16_t gain)
 {
-	_gain = (gain * 2) << 8;
+	_gain = (gain * 2) <<  8;
 	updateMultiplierToVolts(); // each new gain setting changes how we convert to volts
 }
 
@@ -227,11 +227,6 @@ uint16_t ADS1015::readRegister(uint8_t location)
   uint8_t data[2];
   uBit.i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
   return (data[0] << 8) | data[1];
-  /*_i2cPort->beginTransmission(ADS1015_ADDRESS_GND);
-  _i2cPort->write(ADS1015_POINTER_CONVERT);
-  _i2cPort->endTransmission();
-  _i2cPort->requestFrom((int)ADS1015_ADDRESS_GND, 2); //Ask for one uint8_t
-  return (_i2cPort->read() << 8 | _i2cPort->read());*/
 }
 
 //Write a value to a spot
@@ -242,11 +237,6 @@ void ADS1015::writeRegister(uint8_t location, uint16_t val)
   data[1] = val >> 8;
   data[2] = val;
   uBit.i2c.write(ADS1015_ADDRESS_GND, data, 3);
-  /*_i2cPort->beginTransmission(ADS1015_ADDRESS_GND);
-  _i2cPort->write(location);
-  _i2cPort->write((uint8_t)(val >> 8));
-  _i2cPort->write((uint8_t)(val & 0xFF));
-  _i2cPort->endTransmission();*/
  }
 
 //Reads a two uint8_t value from a consecutive registers
@@ -255,15 +245,6 @@ uint16_t ADS1015::readRegister16(uint8_t location)
   uint8_t data[2];
   uBit.i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
   return (data[0] << 8) | data[1];
-  /*_i2cPort->beginTransmission(ADS1015_ADDRESS_GND);
-  _i2cPort->write(ADS1015_POINTER_CONVERT);
-  result = _i2cPort->endTransmission();
-  _i2cPort->requestFrom((int)ADS1015_ADDRESS_GND, 2);
-
-  uint16_t data = _i2cPort->read();
-  data |= (_i2cPort->read() << 8);
-
-  return (data);*/
 }
 
 /**************************************************************************/
