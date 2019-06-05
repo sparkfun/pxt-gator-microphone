@@ -22,8 +22,6 @@
 
 class ADS1015 {
   public:
- 	void begin();
-	
     bool isConnected(); //Checks if sensor ack's the I2C request
 	
 	uint16_t getSingleEnded(uint8_t channel);

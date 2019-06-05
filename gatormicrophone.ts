@@ -16,29 +16,30 @@
 /**
  * Functions to operate the gatorMicrophone sensor
  */
-enum audioDataType
-{
-	gate = 1,
-	envelope = 2,
-}
 
-//% color=#f44242 icon="\uf185"
+//% color=#f44242 icon="\uf130"
 namespace gatorMicrophone {
-    // Functions for reading Particle from the gatorMicrophone in Particle or straight adv value
+    // Functions for reading envelope and gate data
 	
-	//% weight=31 
-	//% blockId="gatorMicrophone_begin" 
-	//% block="Initialize gator:Microphone"
-	//% shim=gatorMicrophone::begin
-	export function begin(){
-		return
+	/**
+	* Read's the intensity of sound from the microphone as a value between 0 and 2047, sensitivity is determined by the switch on the gator:microphone
+	*/
+	//% weight=30
+	//% blockId="gatorMicrophone_readEnvelopeData"
+	//% block="Get sound intensity"
+	//% shim=gatorMicrophone::readEnvelopeData
+	export function readEnvelopeData(): number{
+		return 0
 	}
 	
-	//% weight=30
-	//% blockId="gatorMicrophone_readData"
-	//% block="Read %audioDataType | value"
-	//% shim=gatorMicrophone::readData
-	export function readData(type: audioDataType): number{
+	/**
+	* Returns true if the sound is above a certain level, sensitivity is determined by the switch on the gator:microphone
+	*/
+	//% weight=29
+	//% blockId="gatorMicrophone_readGateData"
+	//% block="Check for sound"
+	//% shim=gatorMicrophone::readGateData
+	export function readGateData(): number{
 		return 0
 	}
 }

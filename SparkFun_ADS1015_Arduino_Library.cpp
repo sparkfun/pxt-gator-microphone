@@ -25,9 +25,6 @@ MicroBit uBit;
 static const char I2C_BUFFER_LENGTH = 32;
 
 static const char ADS1015_ADDRESS_GND = 0x90; //7-bit unshifted default I2C Address
-static const char ADS1015_ADDRESS_VDD = 0x49;
-static const char ADS1015_ADDRESS_SDA = 0x4A;
-static const char ADS1015_ADDRESS_SCL = 0x4B;
 
 //Register addresses
 static const char ADS1015_DELAY                = (1);
@@ -87,13 +84,6 @@ static const char ADS1015_POINTER_HITHRESH     = (0x03);
 uint16_t _mode = ADS1015_CONFIG_MODE_CONT;
 uint16_t _gain = ADS1015_CONFIG_PGA_2;
 uint16_t _sampleRate = ADS1015_CONFIG_RATE_1600HZ;
-
-void ADS1015::begin()
-{
-  //Bring in the user's choices
-
-
-}
 
 //Returns true if I2C device ack's
 bool ADS1015::isConnected()
