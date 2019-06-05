@@ -277,7 +277,6 @@ uint16_t ADS1015::getSampleRate ()
 bool ADS1015::available()
 {
   uint16_t value = readRegister(ADS1015_POINTER_CONFIG);
-  release_fiber();
   return (value & (1 << 0)); //Bit 0 is DRDY
 }
 
@@ -286,7 +285,6 @@ uint16_t ADS1015::readRegister(uint8_t location)
 {
   uint8_t data[2];
   uBit.i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
-  release_fiber();
   return (data[0] << 8) | data[1];
   /*_i2cPort->beginTransmission(ADS1015_ADDRESS_GND);
   _i2cPort->write(ADS1015_POINTER_CONVERT);
@@ -303,7 +301,6 @@ void ADS1015::writeRegister(uint8_t location, uint16_t val)
   data[1] = val >> 8;
   data[2] = val;
   uBit.i2c.write(ADS1015_ADDRESS_GND, data, 3);
-  release_fiber();
   /*_i2cPort->beginTransmission(ADS1015_ADDRESS_GND);
   _i2cPort->write(location);
   _i2cPort->write((uint8_t)(val >> 8));
@@ -316,7 +313,6 @@ uint16_t ADS1015::readRegister16(uint8_t location)
 {
   uint8_t data[2];
   uBit.i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
-  release_fiber();
   return (data[0] << 8) | data[1];
   /*_i2cPort->beginTransmission(ADS1015_ADDRESS_GND);
   _i2cPort->write(ADS1015_POINTER_CONVERT);
