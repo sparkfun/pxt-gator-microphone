@@ -22,7 +22,6 @@
 using namespace pxt;
 
 namespace gatorMicrophone {
-	MicroBitI2C i2c(I2C_SDA0, I2C_SCL0);
 	ADS1015 *mic; //BME280 handles our Temp, pressure, and humidity
 		
 	//%
