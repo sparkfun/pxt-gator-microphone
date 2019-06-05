@@ -1,6 +1,6 @@
 {
     "name": "gatorMicrophone",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "SparkFun gator:Microphone Gate and Envelope Sensor",
     "license": "MIT",
     "dependencies": {
