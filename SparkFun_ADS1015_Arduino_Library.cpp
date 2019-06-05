@@ -24,7 +24,7 @@ MicroBit uBit;
 //The catch-all default is 32
 static const char I2C_BUFFER_LENGTH = 32;
 
-static const char ADS1015_ADDRESS_GND = 0x48; //7-bit unshifted default I2C Address
+static const char ADS1015_ADDRESS_GND = 0x90; //7-bit unshifted default I2C Address
 static const char ADS1015_ADDRESS_VDD = 0x49;
 static const char ADS1015_ADDRESS_SDA = 0x4A;
 static const char ADS1015_ADDRESS_SCL = 0x4B;
