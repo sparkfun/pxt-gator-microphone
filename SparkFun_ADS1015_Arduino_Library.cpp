@@ -21,14 +21,77 @@
 
 MicroBit uBit;
 
+//The catch-all default is 32
+static const char I2C_BUFFER_LENGTH = 32;
+
+static const char ADS1015_ADDRESS_GND = 0x48; //7-bit unshifted default I2C Address
+static const char ADS1015_ADDRESS_VDD = 0x49;
+static const char ADS1015_ADDRESS_SDA = 0x4A;
+static const char ADS1015_ADDRESS_SCL = 0x4B;
+
+//Register addresses
+static const char ADS1015_DELAY                = (1);
+
+//Pointer Register
+static const char ADS1015_POINTER_CONVERT      = (0x00);
+static const char ADS1015_POINTER_CONFIG       = (0x01);
+static const char ADS1015_POINTER_LOWTHRESH    = (0x02);
+static const char ADS1015_POINTER_HITHRESH     = (0x03);
+
+#define ADS1015_CONFIG_OS_NO          (0x8000)
+#define ADS1015_CONFIG_OS_SINGLE      (0x8000)
+#define ADS1015_CONFIG_OS_READY       (0x0000)
+#define ADS1015_CONFIG_OS_NOTREADY    (0x8000)
+
+#define ADS1015_CONFIG_MODE_CONT      (0x0000)
+#define ADS1015_CONFIG_MODE_SINGLE    (0x0100)
+
+#define ADS1015_CONFIG_MUX_SINGLE_0     (0x4000)
+#define ADS1015_CONFIG_MUX_SINGLE_1     (0x5000)
+#define ADS1015_CONFIG_MUX_SINGLE_2     (0x6000)
+#define ADS1015_CONFIG_MUX_SINGLE_3     (0x7000)
+#define ADS1015_CONFIG_MUX_DIFF_P0_N1   (0x0000)
+#define ADS1015_CONFIG_MUX_DIFF_P0_N3   (0x1000)
+#define ADS1015_CONFIG_MUX_DIFF_P1_N3   (0x2000)
+#define ADS1015_CONFIG_MUX_DIFF_P2_N3   (0x3000)
+
+#define ADS1015_CONFIG_RATE_128HZ     (0x0000)
+#define ADS1015_CONFIG_RATE_250HZ     (0x0020)
+#define ADS1015_CONFIG_RATE_490HZ     (0x0040)
+#define ADS1015_CONFIG_RATE_920HZ     (0x0060)
+#define ADS1015_CONFIG_RATE_1600HZ    (0x0080)
+#define ADS1015_CONFIG_RATE_2400HZ    (0x00A0)
+#define ADS1015_CONFIG_RATE_3300HZ    (0x00C0)
+
+#define ADS1015_CONFIG_PGA_MASK       (0X0E00)
+#define ADS1015_CONFIG_PGA_TWOTHIRDS  (0X0000) // +/- 6.144v
+#define ADS1015_CONFIG_PGA_1          (0X0200) // +/- 4.096v
+#define ADS1015_CONFIG_PGA_2          (0X0400) // +/- 2.048v
+#define ADS1015_CONFIG_PGA_4          (0X0600) // +/- 1.024v
+#define ADS1015_CONFIG_PGA_8          (0X0800) // +/- 0.512v
+#define ADS1015_CONFIG_PGA_16         (0X0A00) // +/- 0.256v
+
+#define ADS1015_CONFIG_CMODE_TRAD    (0x0000)  // Traditional comparator with hysteresis (default)
+#define ADS1015_CONFIG_CMODE_WINDOW  (0x0010)  // Window comparator
+#define ADS1015_CONFIG_CPOL_ACTVLOW  (0x0000)  // ALERT/RDY pin is low when active (default)
+#define ADS1015_CONFIG_CPOL_ACTVHI   (0x0008)  // ALERT/RDY pin is high when active
+#define ADS1015_CONFIG_CLAT_NONLAT   (0x0000)  // Non-latching comparator (default)
+#define ADS1015_CONFIG_CLAT_LATCH    (0x0004)  // Latching comparator    
+#define ADS1015_CONFIG_CQUE_1CONV    (0x0000)  // Assert ALERT/RDY after one conversions
+#define ADS1015_CONFIG_CQUE_2CONV    (0x0001)  // Assert ALERT/RDY after two conversions
+#define ADS1015_CONFIG_CQUE_4CONV    (0x0002)  // Assert ALERT/RDY after four conversions
+#define ADS1015_CONFIG_CQUE_NONE     (0x0003) 
 //Sets up the sensor for constant read
 //Returns false if sensor does not respond
 
-void ADS1015::begin(uint8_t i2caddr)
+uint16_t _mode = ADS1015_CONFIG_MODE_CONT;
+uint16_t _gain = ADS1015_CONFIG_PGA_2;
+uint16_t _sampleRate = ADS1015_CONFIG_RATE_1600HZ;
+
+void ADS1015::begin()
 {
   //Bring in the user's choices
 
-  _i2caddr = i2caddr;
 
 }
 
@@ -71,51 +134,6 @@ uint16_t ADS1015::getSingleEnded(uint8_t channel)
 	uBit.sleep(ADS1015_DELAY);
 	
     return readRegister(ADS1015_POINTER_CONVERT) >> 4;
-}
-
-//Returns the *signed* decimal value of sensor differential input
-//Note, there are 4 possible differential pin setups:
-//ADS1015_CONFIG_MUX_DIFF_P0_N1
-//ADS1015_CONFIG_MUX_DIFF_P0_N3
-//ADS1015_CONFIG_MUX_DIFF_P1_N3
-//ADS1015_CONFIG_MUX_DIFF_P2_N3
-int16_t ADS1015::getDifferential(uint16_t CONFIG_MUX_DIFF)
-{
-	// check for valid argument input
-	if (
-	(CONFIG_MUX_DIFF == ADS1015_CONFIG_MUX_DIFF_P0_N1) ||
-	(CONFIG_MUX_DIFF == ADS1015_CONFIG_MUX_DIFF_P0_N3) ||
-	(CONFIG_MUX_DIFF == ADS1015_CONFIG_MUX_DIFF_P1_N3) ||
-	(CONFIG_MUX_DIFF == ADS1015_CONFIG_MUX_DIFF_P2_N3)
-	)
-	{
-		// valid argument; do nothing and then carry on below
-	}
-	else
-	{
-		return 0; // received invalid argument
-	}
-	
-	uint16_t config = ADS1015_CONFIG_OS_SINGLE   |
-					  _mode |
-					  _sampleRate;
-			
-	config |= _gain;		  
-	
-    config |= CONFIG_MUX_DIFF; // default is ADS1015_CONFIG_MUX_DIFF_P0_N1
-	
-	writeRegister(ADS1015_POINTER_CONFIG, config);
-	uBit.sleep(ADS1015_DELAY);
-	
-    uint16_t result = readRegister(ADS1015_POINTER_CONVERT) >> 4;
-	
-    // making sure we keep the sign bit intact
-    if (result > 0x07FF)
-    {
-      // negative number - extend the sign to 16th bit
-      result |= 0xF000;
-    }
-    return (int16_t)result; // cast as a *signed* 16 bit int.
 }
 
 // antiquated function from older library, here for backwards compatibility
@@ -275,12 +293,12 @@ bool ADS1015::available()
 uint16_t ADS1015::readRegister(uint8_t location)
 {
   uint8_t data[2];
-  uBit.i2c.readRegister(_i2caddr, location, data, 2);
+  uBit.i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
   return (data[0] << 8) | data[1];
-  /*_i2cPort->beginTransmission(_i2caddr);
+  /*_i2cPort->beginTransmission(ADS1015_ADDRESS_GND);
   _i2cPort->write(ADS1015_POINTER_CONVERT);
   _i2cPort->endTransmission();
-  _i2cPort->requestFrom((int)_i2caddr, 2); //Ask for one uint8_t
+  _i2cPort->requestFrom((int)ADS1015_ADDRESS_GND, 2); //Ask for one uint8_t
   return (_i2cPort->read() << 8 | _i2cPort->read());*/
 }
 
@@ -291,8 +309,8 @@ void ADS1015::writeRegister(uint8_t location, uint16_t val)
   data[0] = location;
   data[1] = val >> 8;
   data[2] = val;
-  uBit.i2c.write(_i2caddr, data, 3);
-  /*_i2cPort->beginTransmission(_i2caddr);
+  uBit.i2c.write(ADS1015_ADDRESS_GND, data, 3);
+  /*_i2cPort->beginTransmission(ADS1015_ADDRESS_GND);
   _i2cPort->write(location);
   _i2cPort->write((uint8_t)(val >> 8));
   _i2cPort->write((uint8_t)(val & 0xFF));
@@ -303,12 +321,12 @@ void ADS1015::writeRegister(uint8_t location, uint16_t val)
 uint16_t ADS1015::readRegister16(uint8_t location)
 {
   uint8_t data[2];
-  uBit.i2c.readRegister(_i2caddr, location, data, 2);
+  uBit.i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
   return (data[0] << 8) | data[1];
-  /*_i2cPort->beginTransmission(_i2caddr);
+  /*_i2cPort->beginTransmission(ADS1015_ADDRESS_GND);
   _i2cPort->write(ADS1015_POINTER_CONVERT);
   result = _i2cPort->endTransmission();
-  _i2cPort->requestFrom((int)_i2caddr, 2);
+  _i2cPort->requestFrom((int)ADS1015_ADDRESS_GND, 2);
 
   uint16_t data = _i2cPort->read();
   data |= (_i2cPort->read() << 8);

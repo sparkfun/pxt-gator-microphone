@@ -21,6 +21,7 @@ enum audioDataType
 	gate = 1,
 	envelope = 2,
 }
+
 //% color=#f44242 icon="\uf185"
 namespace gatorMicrophone {
     // Functions for reading Particle from the gatorMicrophone in Particle or straight adv value
