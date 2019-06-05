@@ -40,6 +40,6 @@ namespace gatorMicrophone {
 	//% block="Check for sound"
 	//% shim=gatorMicrophone::readGateData
 	export function readGateData(): boolean{
-		return 0
+		return true
 	}
 }
