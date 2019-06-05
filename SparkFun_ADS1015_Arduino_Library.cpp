@@ -147,7 +147,7 @@ uint16_t ADS1015::getMode ()
 
 void ADS1015::setGain (uint16_t gain)
 {
-	_gain = (gain * 2) << 16;
+	_gain = (gain * 2) << 8;
 	updateMultiplierToVolts(); // each new gain setting changes how we convert to volts
 }
 

@@ -28,7 +28,7 @@ namespace gatorMicrophone {
 	uint16_t readEnvelopeData()
 	{
 		uint16_t temp = mic->getSingleEnded(2);
-		release_fiber();
+		//release_fiber();
 		return temp;
 	}
 	
@@ -38,7 +38,7 @@ namespace gatorMicrophone {
 		uint16_t temp = mic->getSingleEnded(3);
 		if (temp > 1000)
 		{
-			release_fiber();
+			//release_fiber();
 			return true;
 		}
 		return false;
