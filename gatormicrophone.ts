@@ -34,7 +34,7 @@ namespace gatorMicrophone {
 	/**
 	* Read's the intensity of sound from the microphone as a value between 0 and 2047, sensitivity is determined by the switch on the gator:microphone
 	*/
-	//% weight=30
+	//% weight=25
 	//% blockId="gatorMicrophone_readEnvelopeData"
 	//% block="Get sound intensity"
 	//% shim=gatorMicrophone::readEnvelopeData
@@ -45,7 +45,7 @@ namespace gatorMicrophone {
 	/**
 	* Returns true if the sound is above a certain level, sensitivity is determined by the switch on the gator:microphone
 	*/
-	//% weight=29
+	//% weight=24
 	//% blockId="gatorMicrophone_readGateData"
 	//% block="Check for sound"
 	//% shim=gatorMicrophone::readGateData
@@ -56,7 +56,7 @@ namespace gatorMicrophone {
 	/**
 	* Sets the gain, or volume of the microphone. Lower gain means more sensitivity to smaller changes in volume.
 	*/
-	//% weight=28
+	//% weight=23
 	//% blockId="gatorMicrophone_setGain"
 	//% block="Change gain to %gainOptions"
 	//% shim=gatorMicrophone::setGain

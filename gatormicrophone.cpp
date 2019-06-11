@@ -22,7 +22,7 @@
 using namespace pxt;
 
 namespace gatorMicrophone {
-	ADS1015 *mic; //BME280 handles our Temp, pressure, and humidity
+	ADS1015 *mic; //Create an ADS1015 sensor
 		
 	//%
 	uint16_t readEnvelopeData()
