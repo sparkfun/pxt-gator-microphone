@@ -26,7 +26,7 @@ enum gainOptions
 	four = 3,
 	eight = 4,
 	sixteen = 5,
-}
+};
 
 //% color=#f44242 icon="\uf130"
 namespace gatorMicrophone {
