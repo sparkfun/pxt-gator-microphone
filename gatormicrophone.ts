@@ -17,21 +17,7 @@
  * Functions to operate the gatorMicrophone sensor
  */
 
-enum gainOptions
-{
-	//% block="two thirds" enumval=0
-	two_thirds = 0,
-	//% block="one" enumval=1
-	one = 1,
-	//% block="two" enumval=2
-	two = 2,
-	//% block="four" enumval=3
-	four = 3,
-	//% block="eight" enumval=4
-	eight = 4,
-	//% block="sixteen" enumval=5
-	sixteen = 5,
-};
+
 
 //% color=#f44242 icon="\uf130"
 namespace gatorMicrophone {
