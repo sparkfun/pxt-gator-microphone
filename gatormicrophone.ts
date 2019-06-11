@@ -19,6 +19,7 @@
 
 enum gainOptions
 {
+	//% block="two thirds"
 	two_thirds = 0,
 	one = 1,
 	two = 2,

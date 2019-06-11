@@ -20,7 +20,6 @@
 #include "MicroBit.h"
 
 MicroBit uBit;
-MicroBitI2C i2c(I2C_SDA0, I2C_SCL0);
 
 //The catch-all default is 32
 static const char I2C_BUFFER_LENGTH = 32;
@@ -236,7 +235,7 @@ void ADS1015::writeRegister(uint8_t location, uint16_t val)
   data[0] = location;
   data[1] = val >> 8;
   data[2] = val;
-  uBit.i2c.write(ADS1015_ADDRESS_GND, data, 3);
+  uBit.i2c.write(ADS1015_ADDRESS_GND, data, 3, false);
  }
 
 //Reads a two uint8_t value from a consecutive registers
