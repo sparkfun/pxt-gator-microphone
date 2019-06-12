@@ -120,7 +120,7 @@ uint16_t ADS1015::getSingleEnded(uint8_t channel)
         break;
     }
 	
-	writeRegister(ADS1015_POINTER_CONFIG, config);
+	writeMicRegister(ADS1015_POINTER_CONFIG, config);
 	//uBit.sleep(ADS1015_DELAY);
 	
     return readMicRegister(ADS1015_POINTER_CONVERT) >> 4;
@@ -229,7 +229,7 @@ uint16_t ADS1015::readMicRegister(uint8_t location)
 }
 
 //Write a value to a spot
-void ADS1015::writeRegister(uint8_t location, uint16_t val)
+void ADS1015::writeMicRegister(uint8_t location, uint16_t val)
 {
   char data[3];
   data[0] = location;
@@ -292,10 +292,10 @@ void ADS1015::setComparatorSingleEnded(uint8_t channel, int16_t threshold)
 	
 	// Set the high threshold register
 	// Shift 12-bit results left 4 bits for the ADS1015
-	writeRegister(ADS1015_POINTER_HITHRESH, threshold << 4);
+	writeMicRegister(ADS1015_POINTER_HITHRESH, threshold << 4);
 
 	// Write config register to the ADC
-	writeRegister(ADS1015_POINTER_CONFIG, config);
+	writeMicRegister(ADS1015_POINTER_CONFIG, config);
 }
 
 /**************************************************************************/

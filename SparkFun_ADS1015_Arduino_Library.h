@@ -41,7 +41,7 @@ class ADS1015 {
 	float getMultiplier();
 
     uint16_t readMicRegister(uint8_t location); //Basic read of a register
-    void writeRegister(uint8_t location, uint16_t val); //Writes to a location
+    void writeMicRegister(uint8_t location, uint16_t val); //Writes to a location
     uint16_t readMicRegister16(uint8_t location); //Reads a 16bit value
 	
 	void setComparatorSingleEnded(uint8_t channel, int16_t threshold);
