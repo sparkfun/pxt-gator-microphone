@@ -17,8 +17,6 @@
  * Functions to operate the gatorMicrophone sensor
  */
 
-
-
 //% color=#f44242 icon="\uf130"
 namespace gatorMicrophone {
     // Functions for reading envelope and gate data
@@ -28,7 +26,7 @@ namespace gatorMicrophone {
 	*/
 	//% weight=25
 	//% blockId="gatorMicrophone_readEnvelopeData"
-	//% block="Get sound intensity"
+	//% block="get sound intensity"
 	//% shim=gatorMicrophone::readEnvelopeData
 	export function readEnvelopeData(): number{
 		return 0
@@ -39,7 +37,7 @@ namespace gatorMicrophone {
 	*/
 	//% weight=24
 	//% blockId="gatorMicrophone_readGateData"
-	//% block="Check for sound"
+	//% block="check for sound"
 	//% shim=gatorMicrophone::readGateData
 	export function readGateData(): boolean{
 		return true
@@ -50,7 +48,7 @@ namespace gatorMicrophone {
 	*/
 	//% weight=23
 	//% blockId="gatorMicrophone_setGain"
-	//% block="Change gain to %gainOptions"
+	//% block="change gain to %gainOptions"
 	//% shim=gatorMicrophone::setGain
 	//% advanced=true
 	export function setGain(gainOption: gainOptions){

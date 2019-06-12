@@ -19,7 +19,7 @@
 #include "mbed.h"
 #include "MicroBit.h"
 
-MicroBit uBit;
+//MicroBit uBit;
 
 //The catch-all default is 32
 static const char I2C_BUFFER_LENGTH = 32;
@@ -121,9 +121,9 @@ uint16_t ADS1015::getSingleEnded(uint8_t channel)
     }
 	
 	writeRegister(ADS1015_POINTER_CONFIG, config);
-	uBit.sleep(ADS1015_DELAY);
+	//uBit.sleep(ADS1015_DELAY);
 	
-    return readRegister(ADS1015_POINTER_CONVERT) >> 4;
+    return readMicRegister(ADS1015_POINTER_CONVERT) >> 4;
 }
 
 // antiquated function from older library, here for backwards compatibility
@@ -216,15 +216,15 @@ uint16_t ADS1015::getSampleRate ()
 //Checks to see if DRDY flag is set in the status register
 bool ADS1015::available()
 {
-  uint16_t value = readRegister(ADS1015_POINTER_CONFIG);
+  uint16_t value = readMicRegister(ADS1015_POINTER_CONFIG);
   return (value & (1 << 0)); //Bit 0 is DRDY
 }
 
 //Reads from a give location
-uint16_t ADS1015::readRegister(uint8_t location)
+uint16_t ADS1015::readMicRegister(uint8_t location)
 {
   uint8_t data[2];
-  uBit.i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
+  //uBit.i2c.readMicRegister(ADS1015_ADDRESS_GND, location, data, 2);
   return (data[0] << 8) | data[1];
 }
 
@@ -235,14 +235,14 @@ void ADS1015::writeRegister(uint8_t location, uint16_t val)
   data[0] = location;
   data[1] = val >> 8;
   data[2] = val;
-  uBit.i2c.write(ADS1015_ADDRESS_GND, data, 3, false);
+  //uBit.i2c.write(ADS1015_ADDRESS_GND, data, 3, false);
  }
 
 //Reads a two uint8_t value from a consecutive registers
-uint16_t ADS1015::readRegister16(uint8_t location)
+uint16_t ADS1015::readMicRegister16(uint8_t location)
 {
   uint8_t data[2];
-  uBit.i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
+  //uBit.i2c.readMicRegister(ADS1015_ADDRESS_GND, location, data, 2);
   return (data[0] << 8) | data[1];
 }
 
@@ -312,10 +312,10 @@ void ADS1015::setComparatorSingleEnded(uint8_t channel, int16_t threshold)
 int16_t ADS1015::getLastConversionResults()
 {
 	// Wait for the conversion to complete
-	uBit.sleep(ADS1015_DELAY);
+	//uBit.sleep(ADS1015_DELAY);
 
 	// Read the conversion results
-	uint16_t result = readRegister(ADS1015_POINTER_CONVERT) >> 4;
+	uint16_t result = readMicRegister(ADS1015_POINTER_CONVERT) >> 4;
 
 	// Shift 12-bit results right 4 bits for the ADS1015,
 	// making sure we keep the sign bit intact
