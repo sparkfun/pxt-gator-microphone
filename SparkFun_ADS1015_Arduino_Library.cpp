@@ -224,7 +224,7 @@ bool ADS1015::available()
 uint16_t ADS1015::readMicRegister(uint8_t location)
 {
   uint8_t data[2];
-  uBit.i2c.readMicRegister(ADS1015_ADDRESS_GND, location, data, 2);
+  uBit.i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
   return (data[0] << 8) | data[1];
 }
 
@@ -242,7 +242,7 @@ void ADS1015::writeMicRegister(uint8_t location, uint16_t val)
 uint16_t ADS1015::readMicRegister16(uint8_t location)
 {
   uint8_t data[2];
-  uBit.i2c.readMicRegister(ADS1015_ADDRESS_GND, location, data, 2);
+  uBit.i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
   return (data[0] << 8) | data[1];
 }
 
