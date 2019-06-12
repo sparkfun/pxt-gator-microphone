@@ -23,6 +23,7 @@
 #endif
 
 static MicroBit uBit;
+static MicroBitI2C i2c(I2C_SDA0, I2C_SCL0);
 //The catch-all default is 32
 static const char I2C_BUFFER_LENGTH = 32;
 
@@ -226,7 +227,7 @@ bool ADS1015::available()
 uint16_t ADS1015::readMicRegister(uint8_t location)
 {
   uint8_t data[2];
-  uBit.i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
+  i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
   return (data[0] << 8) | data[1];
 }
 
@@ -237,14 +238,14 @@ void ADS1015::writeMicRegister(uint8_t location, uint16_t val)
   data[0] = location;
   data[1] = val >> 8;
   data[2] = val;
-  uBit.i2c.write(ADS1015_ADDRESS_GND, data, 3, false);
+  i2c.write(ADS1015_ADDRESS_GND, data, 3, false);
  }
 
 //Reads a two uint8_t value from a consecutive registers
 uint16_t ADS1015::readMicRegister16(uint8_t location)
 {
   uint8_t data[2];
-  uBit.i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
+  i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
   return (data[0] << 8) | data[1];
 }
 
