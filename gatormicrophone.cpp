@@ -38,8 +38,8 @@ enum gainOptions
 using namespace pxt;
 
 namespace gatorMicrophone {
-	ADS1015 *mic; //Create an ADS1015 sensor
-		
+	ADS1015 *mic; //Create an ADS1015 sensor	
+
 	//%
 	uint16_t readEnvelopeData()
 	{
