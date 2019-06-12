@@ -22,6 +22,7 @@
 
 class ADS1015 {
   public:
+	MicroBit uBitMic;
     bool isConnected(); //Checks if sensor ack's the I2C request
 	
 	uint16_t getSingleEnded(uint8_t channel);
@@ -49,7 +50,6 @@ class ADS1015 {
 
   private:
 	
-	MicroBit *uBitMic;
 	float _multiplierToVolts = 1.0F; // at a default gain of 2, the multiplier is 1, also updated in setGain()
 	void updateMultiplierToVolts();
 
