@@ -19,7 +19,6 @@
 #include "mbed.h"
 #include "MicroBit.h"
 
-MicroBit uBitMic;
 
 //The catch-all default is 32
 static const char I2C_BUFFER_LENGTH = 32;
