@@ -49,7 +49,7 @@ class ADS1015 {
 
   private:
 	
-	MicroBit uBitMic;
+	MicroBit *uBitMic;
 	float _multiplierToVolts = 1.0F; // at a default gain of 2, the multiplier is 1, also updated in setGain()
 	void updateMultiplierToVolts();
 
