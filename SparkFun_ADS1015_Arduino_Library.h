@@ -18,11 +18,8 @@
 #pragma once
 
 #include "mbed.h"
-#include "MicroBit.h"
-
 class ADS1015 {
   public:
-	MicroBit uBitMic;
     bool isConnected(); //Checks if sensor ack's the I2C request
 	
 	uint16_t getSingleEnded(uint8_t channel);
