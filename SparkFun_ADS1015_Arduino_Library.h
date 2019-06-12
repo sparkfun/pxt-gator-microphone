@@ -17,7 +17,11 @@
 
 #pragma once
 
+#ifndef __MBED_H_
+#define __MBED_H_
 #include "mbed.h"
+#endif
+
 class ADS1015 {
   public:
     bool isConnected(); //Checks if sensor ack's the I2C request
