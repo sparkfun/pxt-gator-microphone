@@ -25,10 +25,10 @@ namespace gatorMicrophone {
 	* Read's the intensity of sound from the microphone as a value between 0 and 2047, sensitivity is determined by the switch on the gator:microphone
 	*/
 	//% weight=25
-	//% blockId="gatorMicrophone_readEnvelopeData"
-	//% block="get sound intensity"
-	//% shim=gatorMicrophone::readEnvelopeData
-	export function readEnvelopeData(): number{
+	//% blockId="gatorMicrophone_getSoundIntensity"
+	//% block="sound intensity"
+	//% shim=gatorMicrophone::getSoundIntensity
+	export function getSoundIntensity(): number{
 		return 0
 	}
 	
@@ -48,10 +48,10 @@ namespace gatorMicrophone {
 	*/
 	//% weight=23
 	//% blockId="gatorMicrophone_setGain"
-	//% block="change gain to %gainOptions"
+	//% block="change gain to %GainOptions"
 	//% shim=gatorMicrophone::setGain
 	//% advanced=true
-	export function setGain(gainOption: gainOptions){
+	export function setGain(gainOption: GainOptions){
 		return
 	}
 }

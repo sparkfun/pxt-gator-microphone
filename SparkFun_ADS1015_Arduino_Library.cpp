@@ -22,7 +22,6 @@
 #include "MicroBit.h"
 #endif
 
-static MicroBit uBit;
 static MicroBitI2C i2c(I2C_SDA0, I2C_SCL0);
 //The catch-all default is 32
 static const char I2C_BUFFER_LENGTH = 32;
@@ -86,7 +85,7 @@ static const char ADS1015_POINTER_HITHRESH     = (0x03);
 
 uint16_t _mode = ADS1015_CONFIG_MODE_CONT;
 uint16_t _gain = ADS1015_CONFIG_PGA_2;
-uint16_t _sampleRate = ADS1015_CONFIG_RATE_3300HZ;
+uint16_t _sampleRate = ADS1015_CONFIG_RATE_1600HZ;
 
 //Returns true if I2C device ack's
 bool ADS1015::isConnected()
@@ -124,7 +123,7 @@ uint16_t ADS1015::getSingleEnded(uint8_t channel)
     }
 	
 	writeMicRegister(ADS1015_POINTER_CONFIG, config);
-	uBit.sleep(ADS1015_DELAY);
+	fiber_sleep(ADS1015_DELAY);
 	
     return readMicRegister(ADS1015_POINTER_CONVERT) >> 4;
 }
@@ -315,7 +314,7 @@ void ADS1015::setComparatorSingleEnded(uint8_t channel, int16_t threshold)
 int16_t ADS1015::getLastConversionResults()
 {
 	// Wait for the conversion to complete
-	uBit.sleep(ADS1015_DELAY);
+	fiber_sleep(ADS1015_DELAY);
 
 	// Read the conversion results
 	uint16_t result = readMicRegister(ADS1015_POINTER_CONVERT) >> 4;

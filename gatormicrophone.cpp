@@ -19,20 +19,20 @@
 #include <math.h>
 #include "SparkFun_ADS1015_Arduino_Library.h"
 
-enum gainOptions
+enum GainOptions
 {
-	//% block="two thirds" enumval=0
-	two_thirds = 0,
-	//% block="one" enumval=1
-	one = 1,
-	//% block="two" enumval=2
-	two = 2,
-	//% block="four" enumval=3
-	four = 3,
-	//% block="eight" enumval=4
-	eight = 4,
-	//% block="sixteen" enumval=5
-	sixteen = 5,
+	//% block="Two Thirds" enumval=0
+	Two_Thirds = 0,
+	//% block="One" enumval=1
+	One = 1,
+	//% block="Two" enumval=2
+	Two = 2,
+	//% block="Four" enumval=3
+	Four = 3,
+	//% block="Eight" enumval=4
+	Eight = 4,
+	//% block="Sixteen" enumval=5
+	Sixteen = 5,
 };
 
 using namespace pxt;
@@ -41,7 +41,7 @@ namespace gatorMicrophone {
 	ADS1015 *mic; //Create an ADS1015 sensor	
 
 	//%
-	uint16_t readEnvelopeData()
+	uint16_t getSoundIntensity()
 	{
 		uint16_t envelopeData = mic->getSingleEnded(2);
 		//release_fiber();
