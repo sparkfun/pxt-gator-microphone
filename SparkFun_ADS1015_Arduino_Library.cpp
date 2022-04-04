@@ -22,7 +22,8 @@
 #include "MicroBit.h"
 #endif
 
-static MicroBitI2C i2c(I2C_SDA0, I2C_SCL0);
+//static MicroBitI2C i2c(I2C_SDA0, I2C_SCL0);  //uBit v2 updates
+
 //The catch-all default is 32
 static const char I2C_BUFFER_LENGTH = 32;
 
