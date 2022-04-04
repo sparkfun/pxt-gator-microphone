@@ -226,25 +226,30 @@ bool ADS1015::available()
 uint16_t ADS1015::readMicRegister(uint8_t location)
 {
   uint8_t data[2];
-  i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
+  uBit.i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
   return (data[0] << 8) | data[1];
 }
 
 //Write a value to a spot
 void ADS1015::writeMicRegister(uint8_t location, uint16_t val)
 {
-  char data[3];
+#if MICROBIT_CODAL
+	uint8_t data[3];
+#else 
+	char data[3];
+#endif 
   data[0] = location;
   data[1] = val >> 8;
   data[2] = val;
-  i2c.write(ADS1015_ADDRESS_GND, data, 3, false);
+  uBit.i2c.write(ADS1015_ADDRESS_GND, data, 3);
+  uBit.i2c.write(ADS1015_ADDRESS_GND, data, 3);
  }
 
 //Reads a two uint8_t value from a consecutive registers
 uint16_t ADS1015::readMicRegister16(uint8_t location)
 {
   uint8_t data[2];
-  i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
+  uBit.i2c.readRegister(ADS1015_ADDRESS_GND, location, data, 2);
   return (data[0] << 8) | data[1];
 }
 
