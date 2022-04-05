@@ -22,6 +22,8 @@
 #include "mbed.h"
 #endif
 
+#include "pxt.h"
+
 class ADS1015 {
   public:
     bool isConnected(); //Checks if sensor ack's the I2C request
@@ -56,5 +58,5 @@ class ADS1015 {
 
     bool _printDebug = false; //Flag to print the serial commands we are sending to the Serial port for debug
 
-    Stream *_debugSerial; //The stream to send debug messages to if enabled
+    //Stream *_debugSerial; //The stream to send debug messages to if enabled
 };
