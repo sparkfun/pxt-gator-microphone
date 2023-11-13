@@ -14,15 +14,14 @@
 
 
 /**
- * Functions to operate the gatorMicrophone sensor
+ * Functions to operate the gator:microphone sensor
  */
-
 //% color=#f44242 icon="\uf130"
 namespace gatorMicrophone {
     // Functions for reading envelope and gate data
 	
 	/**
-	* Read's the intensity of sound from the microphone as a value between 0 and 2047, sensitivity is determined by the switch on the gator:microphone
+	* Reads the intensity of sound from the microphone as a value between 0 and 2047, sensitivity is determined by the switch on the gator:microphone
 	*/
 	//% weight=25
 	//% blockId="gatorMicrophone_getSoundIntensity"

@@ -17,8 +17,8 @@
  * Functions to operate the gatorMicrophone sensor
  */
 
-gatorMicrophone.setGain(gainOptions.two_thirds)
+gatorMicrophone.setGain(GainOptions.Two_Thirds)
 basic.forever(function () {
-    serial.writeLine("" + gatorMicrophone.readEnvelopeData())
+    serial.writeLine("" + gatorMicrophone.getSoundIntensity())
     serial.writeLine("" + gatorMicrophone.readGateData())
 })
